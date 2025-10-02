@@ -4,12 +4,13 @@ import datetime
 app = Flask(__name__)
 
 def get_client_ip():
-    """Lấy IP thật từ header hoặc remote_addr"""
-    if request.headers.getlist("X-Forwarded-For"):
-        ip = request.headers.getlist("X-Forwarded-For")[0]
+    # Render / Railway để IP thật trong X-Forwarded-For
+    if "X-Forwarded-For" in request.headers:
+        ip = request.headers["X-Forwarded-For"].split(",")[0].strip()
     else:
         ip = request.remote_addr
     return ip
+
 
 def log_visitor(ip, user_agent, path):
     """Ghi thông tin truy cập vào file log"""
