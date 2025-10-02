@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Visitor landing</title>
+</head>
+<body>
+  <h1>Welcome</h1>
+  <p>This is a demo landing page</p>
+
+  <script>
+    // Call /log to register visitor asynchronously
+    (function() {
+      try {
+        fetch('/log?path=' + encodeURIComponent(location.pathname), {
+          method: 'POST',
+          credentials: 'same-origin'
+        }).then(resp => {
+          // optional: show IP returned by server
+          return resp.json();
+        }).then(json => {
+          console.log("Logged:", json);
+        }).catch(e => {
+          console.warn("Log failed", e);
+        });
+      } catch(e) {
+        console.warn(e);
+      }
+    })();
+  </script>
+</body>
+</html>
