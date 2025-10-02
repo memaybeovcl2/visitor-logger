@@ -14,6 +14,8 @@ def get_real_ip():
 @app.route("/")
 def index():
     ip = get_real_ip()
+    # In ra log (console/heroku logs)
+    print(f"[LOG] Người dùng truy cập từ IP: {ip}")
     return f"Xin chào! IP thật của bạn là: {ip}"
 
 if __name__ == "__main__":
